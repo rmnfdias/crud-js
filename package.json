@@ -1,0 +1,25 @@
+{
+  "name": "crud",
+  "version": "1.0.0",
+  "description": "Respositoria para abordar o CRUD em Javascript",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rmnfdias/crud-js.git"
+  },
+  "author": "Ramon Dias",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rmnfdias/crud-js/issues"
+  },
+  "homepage": "https://github.com/rmnfdias/crud-js#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7"
+  }
+}
