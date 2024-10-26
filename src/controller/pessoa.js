@@ -3,10 +3,10 @@ const ServicePessoas = require ('../service/pessoa')
 //criando controller da pessoa
 class ControllerPessoas{
     //todas as funções do controller recebem req e res
-    GetPessoas(req, res){
+    async GetPessoas(req, res){
         //todas as funções do controler tem Trycatch
         try {
-            const pessoas = ServicePessoas.GetPessoas()
+            const pessoas = await ServicePessoas.GetPessoas()
             res.send({msg: pessoas})
             
         } catch (error) {
@@ -15,11 +15,11 @@ class ControllerPessoas{
         }
 
     }
-    CreatePessoa(req, res){
+    async CreatePessoa(req, res){
         //todas as funções do controler tem Trycatch
         try {
             const name = req.body.name
-            const pessoas = ServicePessoas.CreatePessoas(name)
+            const pessoas = await ServicePessoas.CreatePessoas(name)
             
             res.send({msg: pessoas})
 
@@ -28,11 +28,11 @@ class ControllerPessoas{
             res.status(500).send({msg: error.message})            
             }
     }
-    UpdatePessoa(req, res){
+    async UpdatePessoa(req, res){
         //todas as funções do controler tem Trycatch
         try {const name = req.body.name
             const id = req.params.id
-            const pessoas = ServicePessoas.UpdatePessoas(id, name)
+            const pessoas = await ServicePessoas.UpdatePessoas(id, name)
             
             res.send({msg: pessoas})
 
@@ -41,11 +41,11 @@ class ControllerPessoas{
             res.status(500).send({msg: error.message})            
             }
     }
-    DeletePessoa(req, res){
+    async DeletePessoa(req, res){
         //todas as funções do controler tem Trycatch
         try {
             const id = req.params.id
-            const pessoas = ServicePessoas.DeletePessoas(id)
+            const pessoas = await ServicePessoas.DeletePessoas(id)
             
             res.send({msg: pessoas})
             } catch (error) {
