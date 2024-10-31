@@ -16,10 +16,15 @@ class ControllerPessoas{
 
     }
     async CreatePessoa(req, res){
-        //todas as funções do controler tem Trycatch
+        //todas as funções do controler tem Try catch
         try {
-            const name = req.body.name
-            const pessoas = await ServicePessoas.CreatePessoas(name)
+            // const name = req.body.name
+            // const password = req.body.password
+            // const email = req.body.email
+            const {name, password, email} = req.body
+            //pode ser usado os dois tipo, porém geralmente a segunda opção é mais bem quista 
+            
+            const pessoas = await ServicePessoas.CreatePessoas(name, password, email)
             
             res.send({msg: pessoas})
 
@@ -30,9 +35,12 @@ class ControllerPessoas{
     }
     async UpdatePessoa(req, res){
         //todas as funções do controler tem Trycatch
-        try {const name = req.body.name
+        try {
             const id = req.params.id
-            const pessoas = await ServicePessoas.UpdatePessoas(id, name)
+            const name = req.body.name
+            const password = req.params.password
+            const email = req.params.email
+            const pessoas = await ServicePessoas.UpdatePessoas(id, name, password, email)
             
             res.send({msg: pessoas})
 
@@ -45,12 +53,13 @@ class ControllerPessoas{
         //todas as funções do controler tem Trycatch
         try {
             const id = req.params.id
-            const pessoas = await ServicePessoas.DeletePessoas(id)
+            await ServicePessoas.DeletePessoas(id)
+            res.status(204).send()
             
             res.send({msg: pessoas})
             } catch (error) {
             //todo o catch vai ser assim, mas nem sempre será assim...
-            res.status(500).send({msg: error.message})            
+            //res.status(500).send({msg: error.message})            
             }
     }
 

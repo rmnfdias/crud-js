@@ -12,11 +12,12 @@ class ModelPessoas{
                 autoIncrement: true,
             },
             name:{
-                type: database.db.Sequelize.STRING,
-                unique: true
+                type: database.db.Sequelize.STRING
+
             },
             email:{
-                type: database.db.Sequelize.STRING
+                type: database.db.Sequelize.STRING,
+                unique: true
             },
             password:{
                 type: database.db.Sequelize.STRING
