@@ -1,4 +1,9 @@
+const pessoa = require("../model/pessoa")
 const ModelPessoas = require("../model/pessoa")
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const SALT = 12
+
 //criando a classe ServicePessoas
 class ServicesPessoas{
     async GetPessoas(){
@@ -10,7 +15,9 @@ class ServicesPessoas{
         if(!name || !password || !email){
             throw new Error("Favor preencher todos os dados!")
         }
-        return ModelPessoas.create({name, password, email})
+        //criptografar a senha aqui!
+        const hashSenha = await bcrypt.hash(password, SALT)
+        return ModelPessoas.create({name, password: hashSenha, email})
     }
     async UpdatePessoas(id, name, password, email){
         if(!id){
@@ -20,8 +27,9 @@ class ServicesPessoas{
         if(!pessoa){
             throw new Error("Pessoa não encontrada!")
         }
+
         pessoa.name = name || pessoa.name
-        pessoa.password = password || pessoa.password
+        pessoa.password = password ? await bcrypt.hash(password, SALT) : pessoa.password
         pessoa.email = email || pessoa.email
         
         pessoa.save()
@@ -40,6 +48,23 @@ class ServicesPessoas{
         return pessoa.destroy
 
        // return ModelPessoas.destroy( { where: { id } } )
+    }
+
+    async Login(email, password){
+    if(!email || !password){
+        throw new Error ("Email ou senha inválidos")
+        }
+
+        const pessoa = await ModelPessoas.findOne({ where: { email }})
+
+        if(!pessoa){
+        throw new Error ("Email ou senha inválidos")
+        }
+        const senhaValida = bcrypt.compare(password, pessoa.password)
+        if(!senhaValida){
+            throw new Error ("Email ou senha inválidos")
+        }
+        return jwt.sign({ id: pessoa.id }, 'segredo', { expiresIn: 60 * 60})
     }
 }
 
