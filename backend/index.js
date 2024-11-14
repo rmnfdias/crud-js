@@ -1,12 +1,15 @@
 const express = require ('express')
 const routers = require('./src/route/pessoa')
 const database = require('./src/config/database')
+const cors = requ ('cors')
 
 //instaciar um express
 const app = express()
 
 //middleware json - aceita json no body
 app.use(express.json()) 
+
+app.use(cors())
 
 //Adicionar as rotas ao express
 

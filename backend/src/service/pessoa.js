@@ -11,6 +11,11 @@ class ServicesPessoas{
         //fazer cerificações - ex. se mandou o nome
         return ModelPessoas.findAll()
     }
+    async GetPessoaById(id){
+
+        
+        return ModelPessoas.findByPk(id)
+    }
     async CreatePessoas(name, password, email){
         if(!name || !password || !email){
             throw new Error("Favor preencher todos os dados!")

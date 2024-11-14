@@ -9,7 +9,9 @@ const router = express.Router()
 
 router.post('/', ControllerPessoas.CreatePessoa)
 router.post('/login', ControllerPessoas.Login)
+
 router.get('/', auth , ControllerPessoas.GetPessoas)
+router.get('/session', auth , ControllerPessoas.GetSession)
 router.put('/:id',auth , ControllerPessoas.UpdatePessoa)
 router.delete('/:id', auth , ControllerPessoas.DeletePessoa)
 

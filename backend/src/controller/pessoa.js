@@ -14,6 +14,20 @@ class ControllerPessoas{
             res.status(500).send({msg: error.message})            
         }
 
+    
+
+    }
+    async GetSession(req, res){
+        
+        try {
+            const id = req.sesssion.id
+            const pessoas = await ServicePessoas.GetPessoaById(id)
+            res.send({msg: pessoas})
+            
+        } catch (error) {
+            //todo o catch vai ser assim, mas nem sempre será assim...
+            res.status(500).send({msg: error.message})            
+        }
     }
     async CreatePessoa(req, res){
         //todas as funções do controler tem Try catch
